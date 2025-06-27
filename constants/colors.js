@@ -16,19 +16,19 @@ const COLORS = {
 */
 
 // === RETRO ===
-const COLORS = {
-  primary: "#e17055",
-  textPrimary: "#784e2d",
-  textSecondary: "#a58e7c",
-  textDark: "#50372a",
-  placeholderText: "#767676",
-  background: "#ede1d1",
-  cardBackground: "#faf5eb",
-  inputBackground: "#f7f2ea",
-  border: "#e2d6c1",
-  white: "#ffffff",
-  black: "#000000",
-};
+// const COLORS = {
+//   primary: "#e17055",
+//   textPrimary: "#784e2d",
+//   textSecondary: "#a58e7c",
+//   textDark: "#50372a",
+//   placeholderText: "#767676",
+//   background: "#ede1d1",
+//   cardBackground: "#faf5eb",
+//   inputBackground: "#f7f2ea",
+//   border: "#e2d6c1",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
 
 // === OCEAN ===
 /*
@@ -45,7 +45,7 @@ const COLORS = {
   white: "#ffffff",
   black: "#000000",
 };
-*/
+
 
 // === BLOSSOM ===
 /*
@@ -65,38 +65,38 @@ const COLORS = {
 */
 
 // === MIDNIGHT ===
-/*
-const COLORS = {
-  primary: "#0D1B2A",
-  textPrimary: "#1B263B",
-  textSecondary: "#415A77",
-  textDark: "#0D1B2A",
-  placeholderText: "#767676",
-  background: "#1B263B",
-  cardBackground: "#2E3B4E",
-  inputBackground: "#2C3E50",
-  border: "#415A77",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#0D1B2A",
+//   textPrimary: "#1B263B",
+//   textSecondary: "#415A77",
+//   textDark: "#0D1B2A",
+//   placeholderText: "#767676",
+//   background: "#1B263B",
+//   cardBackground: "#2E3B4E",
+//   inputBackground: "#2C3E50",
+//   border: "#415A77",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 // === SUNSHINE ===
-/*
-const COLORS = {
-  primary: "#FFD700",
-  textPrimary: "#b38600",
-  textSecondary: "#ffea99",
-  textDark: "#8c6d00",
-  placeholderText: "#767676",
-  background: "#fff8dc",
-  cardBackground: "#fffde7",
-  inputBackground: "#fffbe6",
-  border: "#ffe082",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#FFD700",
+//   textPrimary: "#b38600",
+//   textSecondary: "#ffea99",
+//   textDark: "#8c6d00",
+//   placeholderText: "#767676",
+//   background: "#fff8dc",
+//   cardBackground: "#fffde7",
+//   inputBackground: "#fffbe6",
+//   border: "#ffe082",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 // === LAVENDER ===
 /*
@@ -116,24 +116,24 @@ const COLORS = {
 */
 
 // === COCOA ===
-/*
-const COLORS = {
-  primary: "#6D4C41",
-  textPrimary: "#4e342e",
-  textSecondary: "#a1887f",
-  textDark: "#3e2723",
-  placeholderText: "#767676",
-  background: "#efebe9",
-  cardBackground: "#f5f5f5",
-  inputBackground: "#f2f2f2",
-  border: "#d7ccc8",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#6D4C41",
+//   textPrimary: "#4e342e",
+//   textSecondary: "#a1887f",
+//   textDark: "#3e2723",
+//   placeholderText: "#767676",
+//   background: "#efebe9",
+//   cardBackground: "#f5f5f5",
+//   inputBackground: "#f2f2f2",
+//   border: "#d7ccc8",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 // === CORAL ===
-/*
+
 const COLORS = {
   primary: "#FF7043",
   textPrimary: "#bf360c",
@@ -147,24 +147,24 @@ const COLORS = {
   white: "#ffffff",
   black: "#000000",
 };
-*/
+
 
 // === SPACE ===
-/*
-const COLORS = {
-  primary: "#2C3E50",
-  textPrimary: "#34495E",
-  textSecondary: "#95A5A6",
-  textDark: "#1C2833",
-  placeholderText: "#767676",
-  background: "#ecf0f1",
-  cardBackground: "#bdc3c7",
-  inputBackground: "#dfe6e9",
-  border: "#7f8c8d",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#2C3E50",
+//   textPrimary: "#34495E",
+//   textSecondary: "#95A5A6",
+//   textDark: "#1C2833",
+//   placeholderText: "#767676",
+//   background: "#ecf0f1",
+//   cardBackground: "#bdc3c7",
+//   inputBackground: "#dfe6e9",
+//   border: "#7f8c8d",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 // === SUNSET ===
 /*
