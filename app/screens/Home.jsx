@@ -1,33 +1,94 @@
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
-import Header from '@/components/Header'
-import COLORS from '@/constants/colors'
-const Home = () => {
-  const categories = ['Men', 'Women', 'Kids', 'Electronics', 'Home & Garden', 'Beauty & Fashion', 'Sports & Outdoors', 'Travel',]
-  return (
-    <View style={{ backgroundColor: COLORS.background, minHeight: '100%' }}>
-      <Header />
-      <View>
-        <Text style={styles.heading}>Match Your Style</Text>
-        <TextInput style={styles.searchInput} placeholder='Search' />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {
-            categories.map((name, index) => {
-              return (
-                <TouchableOpacity style={styles.categories}>
-                  <Text style={styles.btntext}>{name}</Text>
-                </TouchableOpacity>
-              )
-            })
-        }
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Header from '@/components/Header';
+import COLORS from '@/constants/colors';
+import { useProducts } from '@/context/ProductContext';
+import { Image } from 'expo-image';
 
+const Home = () => {
+  const categories = [
+    'Men',
+    'Women',
+    'Kids',
+    'Electronics',
+    'Home & Garden',
+    'Beauty & Fashion',
+    'Sports & Outdoors',
+    'Travel',
+  ];
+
+  const { products, loading } = useProducts();
+  const [allProducts, setAllProducts] = useState([]);
+
+  useEffect(() => {
+    setAllProducts(products);
+  }, [products]);
+
+  const Cards = ({ item }) => (
+    <View style={styles.card}>
+      <Image source={{ uri: item.image }} style={styles.cardImage} />
+      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+        {item.title}
+      </Text>
+      <Text style={styles.price}>$ {item.price}</Text>
+    </View>
+  );
+
+  return (
+    <View style={{ backgroundColor: COLORS.background, flex: 1 }}>
+      <Header />
+      <View style={{ paddingBottom: 20 }}>
+        <Text style={styles.heading}>Match Your Style</Text>
+        <TextInput style={styles.searchInput} placeholder="Search" />
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {categories.map((name, index) => (
+            <TouchableOpacity key={index} style={styles.categories}>
+              <Text style={styles.btntext}>{name}</Text>
+            </TouchableOpacity>
+          ))}
         </ScrollView>
       </View>
-    </View>
-  )
-}
 
-export default Home
+      {loading ? (
+        <ActivityIndicator size="large" color={COLORS.primary} style={{ marginTop: 20 }} />
+      ) : (
+        <FlatList
+          data={allProducts}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          renderItem={Cards}
+          contentContainerStyle={{
+            padding: 16,
+            backgroundColor: '#fff',
+            flexGrow: 1,
+          }}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
+          ListHeaderComponent={
+            <>
+              <Text style={{textAlign:'center',marginHorizontal:15,fontSize:32,fontWeight:'600',color:COLORS.primary}}>Top Featured </Text>
+              <Text style={styles.hr}></Text>
+            </>
+          }
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>No products available.</Text>
+          }
+        />
+      )}
+    </View>
+  );
+};
+
+export default Home;
+
 const styles = StyleSheet.create({
   heading: {
     fontSize: 26,
@@ -49,12 +110,59 @@ const styles = StyleSheet.create({
   categories: {
     backgroundColor: COLORS.primary,
     paddingVertical: 10,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     margin: 10,
-    borderRadius: 10
-  },btntext:{
+    borderRadius: 10,
+  },
+  btntext: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-  }
-})
+  },
+  card: {
+    width: '48%',
+    height: 260,
+    padding: 12,
+    marginBottom: 16,
+    borderRadius: 15,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: COLORS.background,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  cardImage: {
+    width: '100%',
+    height: 140,
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
+    paddingHorizontal: 4,
+  },
+  price: {
+    paddingTop: 4,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: COLORS.primary,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 50,
+    fontSize: 18,
+    color: '#999',
+  },
+   hr: {
+    borderBottomColor: COLORS.primary,
+    borderBottomWidth: 1,
+    marginBottom:10,
+    width:'50%',
+    margin:'auto'
+  },
+});
