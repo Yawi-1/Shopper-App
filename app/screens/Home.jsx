@@ -13,8 +13,11 @@ import Header from '@/components/Header';
 import COLORS from '@/constants/colors';
 import { useProducts } from '@/context/ProductContext';
 import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
 
 const Home = () => {
+  const navigation = useNavigation();
   const categories = [
     'Men',
     'Women',
@@ -34,13 +37,16 @@ const Home = () => {
   }, [products]);
 
   const Cards = ({ item }) => (
-    <View style={styles.card}>
+    <TouchableOpacity onPress={()=>navigation.navigate('Detail',{product:item})} style={styles.card}>
       <Image source={{ uri: item.image }} style={styles.cardImage} />
       <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
         {item.title}
       </Text>
       <Text style={styles.price}>$ {item.price}</Text>
-    </View>
+      <TouchableOpacity onPress={()=>alert('Hello')}  style={styles.liked}>
+        <Ionicons name="heart-outline" size={24} color="red" />
+      </TouchableOpacity>
+    </TouchableOpacity>
   );
 
   return (
@@ -165,4 +171,11 @@ const styles = StyleSheet.create({
     width:'50%',
     margin:'auto'
   },
+  liked:{
+    position:'absolute',
+    top:8,
+    right:8,
+    padding:5,
+    color:'white'
+  }
 });

@@ -1,13 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from './app/screens/Home'
+import HomeStack from './app/HomeStack'
 import Settings from './app/screens/Settings'
 import Cart from './app/screens/Cart'
 import Profile from './app/screens/Profile'
 import { Ionicons } from '@expo/vector-icons';
 import COLORS from './constants/colors'
-import Header from './components/Header'
 const RootLayout = () => {
     const Tab = createBottomTabNavigator();
   return (
@@ -31,7 +30,7 @@ const RootLayout = () => {
         }
         
     })}>
-        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Settings" component={Settings} />
         <Tab.Screen name="Cart" component={Cart} />
         <Tab.Screen name="Profile" component={Profile} />

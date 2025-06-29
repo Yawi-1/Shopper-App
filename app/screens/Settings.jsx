@@ -4,10 +4,10 @@ import Header from '@/components/Header'
 import COLORS from '@/constants/colors'
 const Settings = () => {
   return (
-    <View style={{backgroundColor:COLORS.background, minHeight:'100%'}}>
+    <View style={{backgroundColor:COLORS.background, flex:1}}>
       <Header/>
       <View>
-      <Text>Match Your Style</Text>
+      <Text>Match Your Styles</Text>
       </View>
     </View>
   )
