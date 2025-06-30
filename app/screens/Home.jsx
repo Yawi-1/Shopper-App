@@ -18,23 +18,20 @@ import { useNavigation } from 'expo-router';
 
 const Home = () => {
   const navigation = useNavigation();
-  const categories = [
-    'Men',
-    'Women',
-    'Kids',
-    'Electronics',
-    'Home & Garden',
-    'Beauty & Fashion',
-    'Sports & Outdoors',
-    'Travel',
-  ];
 
   const { products, loading } = useProducts();
+   const categories = ['all', ...new Set(products.map(item => item.category))]
   const [allProducts, setAllProducts] = useState([]);
+  const [selectedCategory,setSelectedCategory] = useState('all')
 
   useEffect(() => {
     setAllProducts(products);
   }, [products]);
+
+  const filteredProducts = selectedCategory === 'all'
+  ? allProducts
+  : allProducts.filter(item => item.category === selectedCategory);
+
 
   const Cards = ({ item }) => (
     <TouchableOpacity onPress={()=>navigation.navigate('Detail',{product:item})} style={styles.card}>
@@ -57,7 +54,7 @@ const Home = () => {
         <TextInput style={styles.searchInput} placeholder="Search" />
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {categories.map((name, index) => (
-            <TouchableOpacity key={index} style={styles.categories}>
+            <TouchableOpacity onPress={()=>setSelectedCategory(name)} key={index} style={[styles.categories,selectedCategory === name && {backgroundColor:COLORS.primary}]}>
               <Text style={styles.btntext}>{name}</Text>
             </TouchableOpacity>
           ))}
@@ -68,7 +65,7 @@ const Home = () => {
         <ActivityIndicator size="large" color={COLORS.primary} style={{ marginTop: 20 }} />
       ) : (
         <FlatList
-          data={allProducts}
+          data={filteredProducts}
           keyExtractor={(item) => item.id}
           numColumns={2}
           renderItem={Cards}
@@ -114,7 +111,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   categories: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: 'gray',
     paddingVertical: 10,
     paddingHorizontal: 20,
     margin: 10,
@@ -122,8 +119,9 @@ const styles = StyleSheet.create({
   },
   btntext: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
+    textTransform:'capitalize'
   },
   card: {
     width: '48%',
