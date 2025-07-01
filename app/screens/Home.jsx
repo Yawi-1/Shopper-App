@@ -81,7 +81,7 @@ const Home = () => {
               <Text style={styles.hr}></Text>
             </>
           }
-          ListEmptyComponent={
+          ListEmptyComponent={ 
             <Text style={styles.emptyText}>No products available.</Text>
           }
         />
