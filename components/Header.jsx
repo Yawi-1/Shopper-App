@@ -1,5 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
 import { Image } from 'expo-image';
 import COLORS from '@/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,11 +11,10 @@ const Header = () => {
                 name="menu"
                 size={24}
                 color={COLORS.primary}
-                style={styles.icon}
-                onPress={() => console.log('Search clicked')}
+                style={styles.icon} 
                 accessibilityLabel="Search"
             />
-
+            <Text>Shopper</Text>
             <Image
                 source={{
                     uri: 'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHVzZXJ8ZW58MHx8MHx8fDA%3D',

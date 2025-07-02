@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import { Image } from 'expo-image';
 import COLORS from '@/constants/colors';
-import * as Animatable from 'react-native-animatable'; // <-- import animation
+import * as Animatable from 'react-native-animatable';
+import RatingStars from '@/components/RatingStars';
 
 const ProductDetail = ({ route, navigation }) => {
   const { product } = route.params;
@@ -16,70 +17,75 @@ const ProductDetail = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Header />
+      <ScrollView style={{padding:12}}>
+        {/* Animated Product Image */}
+        <Animatable.View animation="fadeInUp" duration={800} delay={100}>
+          <Image
+            source={{ uri: product.image }}
+            style={styles.productImage}
+            contentFit="cover"
+          />
+        </Animatable.View>
 
-      {/* Animated Product Image */}
-      <Animatable.View animation="fadeInUp" duration={800} delay={100}>
-        <Image
-          source={{ uri: product.image }}
-          style={styles.productImage}
-          contentFit="cover"
-        />
-      </Animatable.View>
+        {/* Animated Title and Price */}
+        <Animatable.View animation="fadeInUp" duration={800} delay={200}>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>{product.title}</Text>
+            <Text style={styles.price}>${product.price}</Text>
+          </View>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp" duration={800} delay={200}>
+          <Text style={{ padding: 12, color: 'gray' }}>{product.description}</Text>
+        </Animatable.View>
 
-      {/* Animated Title and Price */}
-      <Animatable.View animation="fadeInUp" duration={800} delay={200}>
-        <View style={styles.titleRow}>
-          <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.price}>${product.price}</Text>
-        </View>
-      </Animatable.View>
+        {/* Animated Size Options */}
+        <Animatable.View animation="fadeInUp" duration={800} delay={300}>
+          <Text style={styles.sectionLabel}>Size</Text>
+          <View style={styles.optionsRow}>
+            {sizes.map((size, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.sizeCircle,
+                  selectedSize === size && styles.selectedOption,
+                ]}
+                onPress={() => setSelectedSize(size)}
+              >
+                <Text style={styles.optionText}>{size}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </Animatable.View>
 
-      {/* Animated Size Options */}
-      <Animatable.View animation="fadeInUp" duration={800} delay={300}>
-        <Text style={styles.sectionLabel}>Size</Text>
-        <View style={styles.optionsRow}>
-          {sizes.map((size, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.sizeCircle,
-                selectedSize === size && styles.selectedOption,
-              ]}
-              onPress={() => setSelectedSize(size)}
-            >
-              <Text style={styles.optionText}>{size}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </Animatable.View>
+        {/* Animated Color Options */}
+        <Animatable.View animation="fadeInUp" duration={800} delay={400}>
+          <Text style={styles.sectionLabel}>Colors</Text>
+          <View style={styles.optionsRow}>
+            {colors.map((color, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.colorCircle,
+                  { backgroundColor: color },
+                  selectedColor === color && styles.selectedBorder,
+                ]}
+                onPress={() => setSelectedColor(color)}
+              />
+            ))}
+          </View>
+        </Animatable.View>
+        <RatingStars rating={3}/>
 
-      {/* Animated Color Options */}
-      <Animatable.View animation="fadeInUp" duration={800} delay={400}>
-        <Text style={styles.sectionLabel}>Colors</Text>
-        <View style={styles.optionsRow}>
-          {colors.map((color, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.colorCircle,
-                { backgroundColor: color },
-                selectedColor === color && styles.selectedBorder,
-              ]}
-              onPress={() => setSelectedColor(color)}
-            />
-          ))}
-        </View>
-      </Animatable.View>
-
-      {/* Animated Add to Cart Button */}
-      <Animatable.View animation="fadeInUp" duration={800} delay={500}>
-        <TouchableOpacity
-          onPress={() => alert('Item added to cart')}
-          style={styles.addToCartBtn}
-        >
-          <Text style={styles.cartText}>Add to Cart</Text>
-        </TouchableOpacity>
-      </Animatable.View>
+        {/* Animated Add to Cart Button */}
+        <Animatable.View animation="fadeInUp" duration={800} delay={500}>
+          <TouchableOpacity
+            onPress={() => alert('Item added to cart')}
+            style={styles.addToCartBtn}
+          >
+            <Text style={styles.cartText}>Add to Cart</Text>
+          </TouchableOpacity>
+        </Animatable.View>
+      </ScrollView>
     </View>
   );
 };

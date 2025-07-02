@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     borderWidth: 1,
-    borderColor: COLORS.primary,
-    marginBottom: 20,
+    // borderColor: COLORS.primary,
+     marginBottom: 20,
     borderRadius: 10,
     width: '90%',
     alignSelf: 'center',
