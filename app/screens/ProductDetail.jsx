@@ -5,6 +5,7 @@ import { Image } from 'expo-image';
 import COLORS from '@/constants/colors';
 import * as Animatable from 'react-native-animatable';
 import RatingStars from '@/components/RatingStars';
+import BackButton from '@/components/BackButton';
 
 const ProductDetail = ({ route, navigation }) => {
   const { product } = route.params;
@@ -16,7 +17,7 @@ const ProductDetail = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <BackButton navigation={navigation} name={'Detail'}/>
       <ScrollView style={{padding:12}}>
         {/* Animated Product Image */}
         <Animatable.View animation="fadeInUp" duration={800} delay={100}>

@@ -1,13 +1,16 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableHighlight } from 'react-native';
 import React from 'react';
 import Header from '@/components/Header';
 import COLORS from '@/constants/colors';
 import { useProducts } from '@/context/ProductContext';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation, useRouter } from 'expo-router';
 
 const Cart = () => {
   const { products = [] } = useProducts();
+  const navigation = useNavigation();
+  const router = useRouter();
 
   const cartCard = ({ item }) => (
     <View style={styles.card}>
@@ -39,6 +42,10 @@ const Cart = () => {
         <Text style={styles.summaryLabel}>Grand Total:</Text>
         <Text style={styles.summaryValue}>$139.27</Text>
       </View>
+
+      <TouchableHighlight onPress={()=>navigation.navigate('Checkout')}>
+        <Text style={styles.checkoutText}>Checkout</Text>
+      </TouchableHighlight>
 
     </View>
   );
@@ -123,6 +130,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
   },
+  checkoutText: {
+    backgroundColor: COLORS.primary,
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+    textAlign: 'center',
+    marginTop: 16,
+    color:'white',
+    fontWeight:600,
+    fontSize:16
+  },
+
   emptyText: {
     fontSize: 18,
     fontWeight: 'bold',
