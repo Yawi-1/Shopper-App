@@ -1,13 +1,12 @@
-// BottomTabs.js
-import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import HomeStack from './HomeStack';
-import Settings from './screens/Settings';
-import Cart from './screens/Cart';
-import Profile from './screens/Profile';
+import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import COLORS from '../constants/colors';
-import Home from './screens/Home';
+import COLORS from '../../constants/colors';
+import Cart from '../screens/Cart';
+import Profile from '../screens/Profile';
+import Settings from '../screens/Settings';
+import HomeStack from './HomeStack';
+import Home from '../screens/Home';
 
 const Tab = createBottomTabNavigator();
 
