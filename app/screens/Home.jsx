@@ -18,29 +18,39 @@ import { useNavigation } from 'expo-router';
 
 const Home = () => {
   const navigation = useNavigation();
-
   const { products, loading } = useProducts();
-   const categories = ['all', ...new Set(products.map(item => item.category))]
+
+  const categories = ['all', ...new Set(products.map(item => item.category))];
   const [allProducts, setAllProducts] = useState([]);
-  const [selectedCategory,setSelectedCategory] = useState('all')
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [inputText, setInputText] = useState('');
 
   useEffect(() => {
     setAllProducts(products);
   }, [products]);
 
-  const filteredProducts = selectedCategory === 'all'
-  ? allProducts
-  : allProducts.filter(item => item.category === selectedCategory);
+  // Filter products based on category and search text
+  const filteredProducts = allProducts
+    .filter(item => selectedCategory === 'all' || item.category === selectedCategory)
 
+  // Suggestions for search
+  const suggestions = allProducts
+    .filter(item =>
+      item.title.toLowerCase().includes(inputText.toLowerCase()) && inputText.trim() !== ''
+    )
+    .slice(0, 5); // show only top 5 suggestions
 
   const Cards = ({ item }) => (
-    <TouchableOpacity onPress={()=>navigation.navigate('Detail',{product:item})} style={styles.card}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Detail', { product: item })}
+      style={styles.card}
+    >
       <Image source={{ uri: item.image }} style={styles.cardImage} />
       <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
         {item.title}
       </Text>
       <Text style={styles.price}>$ {item.price}</Text>
-      <TouchableOpacity onPress={()=>alert('Hello')}  style={styles.liked}>
+      <TouchableOpacity onPress={() => alert('Hello')} style={styles.liked}>
         <Ionicons name="heart-outline" size={24} color="red" />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -51,16 +61,56 @@ const Home = () => {
       <Header />
       <View style={{ paddingBottom: 20 }}>
         <Text style={styles.heading}>Match Your Style</Text>
-        <TextInput style={styles.searchInput} placeholder="Search" />
+        <TextInput
+          value={inputText}
+          onChangeText={setInputText}
+          style={styles.searchInput}
+          placeholder="Search"
+        />
+
+        {/* Suggestions dropdown */}
+        {inputText !== '' && suggestions.length > 0 && (
+          <View style={styles.suggestionContainer}>
+            {suggestions.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => { navigation.navigate('Detail', { product: item }), setInputText('') }}
+                style={styles.suggestionItem}
+              >
+                <Text style={styles.suggestionText}>{item.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+        {inputText !== '' && suggestions.length === 0 && (
+          <View style={styles.suggestionContainer}>
+              <TouchableOpacity
+                onPress={() => {setInputText('') }}
+                style={styles.suggestionItem}
+              >
+                <Text style={styles.suggestionText}>Not found</Text>
+              </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Category scroll list */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {categories.map((name, index) => (
-            <TouchableOpacity onPress={()=>setSelectedCategory(name)} key={index} style={[styles.categories,selectedCategory === name && {backgroundColor:COLORS.primary}]}>
+            <TouchableOpacity
+              onPress={() => setSelectedCategory(name)}
+              key={index}
+              style={[
+                styles.categories,
+                selectedCategory === name && { backgroundColor: COLORS.primary },
+              ]}
+            >
               <Text style={styles.btntext}>{name}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
       </View>
 
+      {/* Product Grid */}
       {loading ? (
         <ActivityIndicator size="large" color={COLORS.primary} style={{ marginTop: 20 }} />
       ) : (
@@ -77,11 +127,21 @@ const Home = () => {
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListHeaderComponent={
             <>
-              <Text style={{textAlign:'center',marginHorizontal:15,fontSize:32,fontWeight:'600',color:COLORS.primary}}>Top Featured </Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  marginHorizontal: 15,
+                  fontSize: 32,
+                  fontWeight: '600',
+                  color: COLORS.primary,
+                }}
+              >
+                Top Featured
+              </Text>
               <Text style={styles.hr}></Text>
             </>
           }
-          ListEmptyComponent={ 
+          ListEmptyComponent={
             <Text style={styles.emptyText}>No products available.</Text>
           }
         />
@@ -91,7 +151,6 @@ const Home = () => {
 };
 
 export default Home;
-
 const styles = StyleSheet.create({
   heading: {
     fontSize: 26,
@@ -101,14 +160,35 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     borderWidth: 1,
-    // borderColor: COLORS.primary,
-     marginBottom: 20,
     borderRadius: 10,
     width: '90%',
     alignSelf: 'center',
     paddingHorizontal: 26,
     backgroundColor: 'white',
     height: 50,
+    marginBottom: 10,
+  },
+  suggestionContainer: {
+    backgroundColor: 'white',
+    width: '90%',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    maxHeight: 220,
+    zIndex: 999,
+    elevation: 4,
+    marginBottom: 15,
+  },
+  suggestionItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  suggestionText: {
+    fontSize: 14,
+    color: '#333',
   },
   categories: {
     backgroundColor: 'gray',
@@ -121,7 +201,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
-    textTransform:'capitalize'
+    textTransform: 'capitalize',
   },
   card: {
     width: '48%',
@@ -162,18 +242,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#999',
   },
-   hr: {
+  hr: {
     borderBottomColor: COLORS.primary,
     borderBottomWidth: 1,
-    marginBottom:10,
-    width:'50%',
-    margin:'auto'
+    marginBottom: 10,
+    width: '50%',
+    alignSelf: 'center',
   },
-  liked:{
-    position:'absolute',
-    top:8,
-    right:8,
-    padding:5,
-    color:'white'
-  }
+  liked: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    padding: 5,
+  },
 });

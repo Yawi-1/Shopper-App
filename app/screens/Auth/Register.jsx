@@ -59,7 +59,7 @@ const Register = ({ navigation }) => {
               style={styles.input}
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              secureTextEntry = {true}
             />
           </View>
         </View>
