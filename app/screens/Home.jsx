@@ -18,7 +18,7 @@ import { useNavigation } from 'expo-router';
 
 const Home = () => {
   const navigation = useNavigation();
-  const { products, loading } = useProducts();
+  const { products, loading,addToWishList} = useProducts();
 
   const categories = ['all', ...new Set(products.map(item => item.category))];
   const [allProducts, setAllProducts] = useState([]);
@@ -50,7 +50,7 @@ const Home = () => {
         {item.title}
       </Text>
       <Text style={styles.price}>$ {item.price}</Text>
-      <TouchableOpacity onPress={() => alert('Hello')} style={styles.liked}>
+      <TouchableOpacity onPress={() => addToWishList(item)} style={styles.liked}>
         <Ionicons name="heart-outline" size={24} color="red" />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -59,56 +59,7 @@ const Home = () => {
   return (
     <View style={{ backgroundColor: COLORS.background, flex: 1 }}>
       <Header />
-      <View style={{ paddingBottom: 20 }}>
-        <Text style={styles.heading}>Match Your Style</Text>
-        <TextInput
-          value={inputText}
-          onChangeText={setInputText}
-          style={styles.searchInput}
-          placeholder="Search"
-        />
 
-        {/* Suggestions dropdown */}
-        {inputText !== '' && suggestions.length > 0 && (
-          <View style={styles.suggestionContainer}>
-            {suggestions.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => { navigation.navigate('Detail', { product: item }), setInputText('') }}
-                style={styles.suggestionItem}
-              >
-                <Text style={styles.suggestionText}>{item.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        )}
-        {inputText !== '' && suggestions.length === 0 && (
-          <View style={styles.suggestionContainer}>
-              <TouchableOpacity
-                onPress={() => {setInputText('') }}
-                style={styles.suggestionItem}
-              >
-                <Text style={styles.suggestionText}>Not found</Text>
-              </TouchableOpacity>
-          </View>
-        )}
-
-        {/* Category scroll list */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {categories.map((name, index) => (
-            <TouchableOpacity
-              onPress={() => setSelectedCategory(name)}
-              key={index}
-              style={[
-                styles.categories,
-                selectedCategory === name && { backgroundColor: COLORS.primary },
-              ]}
-            >
-              <Text style={styles.btntext}>{name}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
 
       {/* Product Grid */}
       {loading ? (
@@ -121,12 +72,62 @@ const Home = () => {
           renderItem={Cards}
           contentContainerStyle={{
             padding: 16,
-            backgroundColor: '#fff',
+            backgroundColor: COLORS.background,
             flexGrow: 1,
           }}
           columnWrapperStyle={{ justifyContent: 'space-between' }}
           ListHeaderComponent={
             <>
+              <View style={{ paddingBottom: 20 }}>
+                <Text style={styles.heading}>Match Your Style</Text>
+                <TextInput
+                  value={inputText}
+                  onChangeText={setInputText}
+                  style={styles.searchInput}
+                  placeholder="Search"
+                />
+                {/* Suggestions dropdown */}
+                {inputText !== '' && suggestions.length > 0 && (
+                  <View style={styles.suggestionContainer}>
+                    {suggestions.map((item) => (
+                      <TouchableOpacity
+                        key={item.id}
+                        onPress={() => { navigation.navigate('Detail', { product: item }), setInputText('') }}
+                        style={styles.suggestionItem}
+                      >
+                        <Text style={styles.suggestionText}>{item.title}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
+                {inputText !== '' && suggestions.length === 0 && (
+                  <View style={styles.suggestionContainer}>
+                    <TouchableOpacity
+                      onPress={() => { setInputText('') }}
+                      style={styles.suggestionItem}
+                    >
+                      <Text style={styles.suggestionText}>Not found</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+
+                {/* Category scroll list */}
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  {categories.map((name, index) => (
+                    <TouchableOpacity
+                      onPress={() => setSelectedCategory(name)}
+                      key={index}
+                      style={[
+                        styles.categories,
+                        selectedCategory === name && { backgroundColor: COLORS.primary },
+                      ]}
+                    >
+                      <Text style={styles.btntext}>{name}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+              </View>
+
               <Text
                 style={{
                   textAlign: 'center',
@@ -139,6 +140,7 @@ const Home = () => {
                 Top Featured
               </Text>
               <Text style={styles.hr}></Text>
+
             </>
           }
           ListEmptyComponent={
