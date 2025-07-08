@@ -51,6 +51,15 @@ export const ProductProvider = ({ children }) => {
     }
   }, [wishlist]);
 
+  // Add to cart
+  const addToCart = async () => {
+    try {
+           alert('Item added to cart')
+    } catch (error) {
+
+    }
+  }
+
   // 📦 Load everything on mount
   useEffect(() => {
     fetchProducts();
@@ -66,6 +75,7 @@ export const ProductProvider = ({ children }) => {
         loading,
         setCart,
         addToWishList,
+        addToCart
       }}
     >
       {children}

@@ -117,36 +117,36 @@ const COLORS = {
 
 // === COCOA ===
 
-// const COLORS = {
-//   primary: "#6D4C41",
-//   textPrimary: "#4e342e",
-//   textSecondary: "#a1887f",
-//   textDark: "#3e2723",
-//   placeholderText: "#767676",
-//   background: "#efebe9",
-//   cardBackground: "#f5f5f5",
-//   inputBackground: "#f2f2f2",
-//   border: "#d7ccc8",
-//   white: "#ffffff",
-//   black: "#000000",
-// };
+const COLORS = {
+  primary: "#6D4C41",
+  textPrimary: "#4e342e",
+  textSecondary: "#a1887f",
+  textDark: "#3e2723",
+  placeholderText: "#767676",
+  background: "#efebe9",
+  cardBackground: "#f5f5f5",
+  inputBackground: "#f2f2f2",
+  border: "#d7ccc8",
+  white: "#ffffff",
+  black: "#000000",
+};
 
 
 // === CORAL ===
 
-const COLORS = {
-  primary: "#FF7043",
-  textPrimary: "#bf360c",
-  textSecondary: "#ffab91",
-  textDark: "#d84315",
-  placeholderText: "#767676",
-  background: "#fbe9e7",
-  cardBackground: "#fff3e0",
-  inputBackground: "#fff5f0",
-  border: "#ffccbc",
-  white: "#ffffff",
-  black: "#000000",
-};
+// const COLORS = {
+//   primary: "#FF7043",
+//   textPrimary: "#bf360c",
+//   textSecondary: "#ffab91",
+//   textDark: "#d84315",
+//   placeholderText: "#767676",
+//   background: "#fbe9e7",
+//   cardBackground: "#fff3e0",
+//   inputBackground: "#fff5f0",
+//   border: "#ffccbc",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
 
 
 // === SPACE ===
@@ -167,20 +167,20 @@ const COLORS = {
 
 
 // === SUNSET ===
-/*
-const COLORS = {
-  primary: "#FF6F61",
-  textPrimary: "#7e2d26",
-  textSecondary: "#ffb3ab",
-  textDark: "#501f1a",
-  placeholderText: "#767676",
-  background: "#ffe6e1",
-  cardBackground: "#fff0ec",
-  inputBackground: "#fff5f3",
-  border: "#ffc6c1",
-  white: "#ffffff",
-  black: "#000000",
-};
-*/
+
+// const COLORS = {
+//   primary: "#FF6F61",
+//   textPrimary: "#7e2d26",
+//   textSecondary: "#ffb3ab",
+//   textDark: "#501f1a",
+//   placeholderText: "#767676",
+//   background: "#ffe6e1",
+//   cardBackground: "#fff0ec",
+//   inputBackground: "#fff5f3",
+//   border: "#ffc6c1",
+//   white: "#ffffff",
+//   black: "#000000",
+// };
+
 
 export default COLORS;

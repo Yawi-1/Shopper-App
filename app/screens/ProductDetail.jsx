@@ -6,11 +6,14 @@ import COLORS from '@/constants/colors';
 import * as Animatable from 'react-native-animatable';
 import RatingStars from '@/components/RatingStars';
 import BackButton from '@/components/BackButton';
+import { useProducts } from '@/context/ProductContext';
 
 const ProductDetail = ({ route, navigation }) => {
   const { product } = route.params;
   const sizes = ['S', 'M', 'L', 'XL'];
   const colors = ['black', 'white', 'gray', 'pink', 'dodgerblue', 'limegreen'];
+  const {addToCart} = useProducts();
+  
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
@@ -80,7 +83,7 @@ const ProductDetail = ({ route, navigation }) => {
         {/* Animated Add to Cart Button */}
         <Animatable.View animation="fadeInUp" duration={800} delay={500}>
           <TouchableOpacity
-            onPress={() => alert('Item added to cart')}
+            onPress={() => addToCart()}
             style={styles.addToCartBtn}
           >
             <Text style={styles.cartText}>Add to Cart</Text>
