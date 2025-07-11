@@ -7,14 +7,20 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import COLORS from '@/constants/colors'
+import { useAuth } from '@/context/AuthContext'
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { login, loading } = useAuth();
+  const handleLogin = async () => {
+    await login({ email, password });
+  }
 
   return (
     <KeyboardAvoidingView
@@ -52,8 +58,8 @@ const Login = ({ navigation }) => {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>Login</Text>
+        <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
+          {loading ? <ActivityIndicator size="small" color={COLORS.white} /> : <Text style={styles.loginText}>Login</Text>}
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>

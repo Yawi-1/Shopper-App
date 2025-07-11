@@ -4,8 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import COLORS from '../../constants/colors';
 import Cart from '../screens/Cart';
 import Profile from '../screens/Profile';
-import Settings from '../screens/Settings';
-import HomeStack from './HomeStack';
 import Home from '../screens/Home';
 
 const Tab = createBottomTabNavigator();
@@ -21,8 +19,6 @@ const BottomTabs = () => {
           let iconName;
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
           } else if (route.name === 'Cart') {
             iconName = focused ? 'cart' : 'cart-outline';
           } else if (route.name === 'Profile') {
@@ -33,7 +29,6 @@ const BottomTabs = () => {
       })}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Settings" component={Settings} />
       <Tab.Screen name="Cart" component={Cart} />
       <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>

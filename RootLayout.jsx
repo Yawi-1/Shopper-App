@@ -8,6 +8,7 @@ import Orders from './app/screens/Orders';
 import Addresses from './app/screens/Addresses';
 import Wishlist from './app/screens/Wishlist';
 import Home from './app/screens/Home';
+import Settings from './app/screens/Settings';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -20,7 +21,6 @@ const MainStack = () => (
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Detail" component={ProductDetail} />
     <Stack.Screen name="Orders" component={Orders} />
-    <Stack.Screen name="Address" component={Addresses} />
   </Stack.Navigator>
 );
 
@@ -28,28 +28,13 @@ const MainStack = () => (
 const RootLayout = () => {
   return (
     <Drawer.Navigator
+      screenOptions={{ headerShown: false }}
       initialRouteName="Home"
-      screenOptions={{
-        headerShown: false,
-        drawerStyle: {
-          backgroundColor: '#f5f5f5', // drawer background
-          width: 250,
-        },
-        drawerLabelStyle: {
-          fontSize: 16,
-          fontWeight: 'bold',
-        },
-        drawerActiveTintColor: '#2196F3', // color for active item
-        drawerInactiveTintColor: '#333',  // color for inactive items
-        drawerItemStyle: {
-          marginVertical: 5,
-          borderRadius: 10,
-        },
-      }}
     >
       <Drawer.Screen name="Home" component={MainStack} />
       <Drawer.Screen name="Orders" component={Orders} />
       <Drawer.Screen name="Wishlist" component={Wishlist} />
+      <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>
   );
 };
