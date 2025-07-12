@@ -13,7 +13,6 @@ const ProductDetail = ({ route, navigation }) => {
   const sizes = ['S', 'M', 'L', 'XL'];
   const colors = ['black', 'white', 'gray', 'pink', 'dodgerblue', 'limegreen'];
   const {addToCart} = useProducts();
-  
 
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
