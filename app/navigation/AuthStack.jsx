@@ -9,7 +9,7 @@ const AuthStack = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_left' // 👈 Basic animation
+        animation: 'slide_from_left' // 
       }}
     >
       <Stack.Screen name="Login" component={Login} />

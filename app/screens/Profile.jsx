@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet,Pressable } from 'react-native';
-import React from 'react';
 import Header from '@/components/Header';
 import COLORS from '@/constants/colors';
+import { useAuth } from '@/context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Profile = ({ navigation }) => {
+  const {handleLogout} = useAuth();
   return (
     <View style={styles.container}>
       <Header />
@@ -21,6 +23,11 @@ const Profile = ({ navigation }) => {
           onPress={() => navigation.navigate('Wishlist')}
         />
       </View>
+
+      <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
+        <Text style={styles.logoutText}>Logout</Text>
+        <Ionicons name='log-out' color={'white'} size={24}/>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -74,4 +81,23 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: COLORS.textDark || '#333',
   },
+  logoutBtn:{
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    gap:'10',
+    paddingVertical:10,
+    paddingHorizontal:20,
+    backgroundColor:'red',
+    position:'absolute',
+    bottom:20,
+    left:10,
+    width:'95%',
+    borderRadius:25
+  },
+  logoutText:{
+    color:'#fff',
+    fontSize:16,
+    fontWeight:600
+  }
 });

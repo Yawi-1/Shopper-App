@@ -1,21 +1,33 @@
+import COLORS from '@/constants/colors'
+import { useAuth } from '@/context/AuthContext'
+import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import {
-  View,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  ScrollView
+  View
 } from 'react-native'
-import { Ionicons } from '@expo/vector-icons'
-import COLORS from '@/constants/colors'
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
+  const { signup, loading } = useAuth();
+
+
+  const handleSubmit = () => {
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      alert('Please enter all fields..');
+      return;
+    }
+    signup({ name, email, password });
+  }
 
   return (
     <KeyboardAvoidingView
@@ -59,20 +71,20 @@ const Register = ({ navigation }) => {
               style={styles.input}
               value={password}
               onChangeText={setPassword}
-              secureTextEntry = {true}
+              secureTextEntry={true}
             />
           </View>
         </View>
 
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>Sign Up</Text>
+        <TouchableOpacity style={styles.loginBtn} onPress={handleSubmit}>
+          {loading ? <ActivityIndicator color={'white'} size={28} /> : <Text style={styles.loginText}>Sign Up</Text>}
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        {!loading && <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.signupLink}>
             Already have an account? <Text style={{ color: COLORS.primary }}>Login</Text>
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </ScrollView>
     </KeyboardAvoidingView>
   )

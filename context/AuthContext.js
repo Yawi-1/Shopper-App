@@ -1,7 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
-import axios from 'axios'
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AuthProvider = ({ children }) => {
 
@@ -10,9 +10,10 @@ export const AuthProvider = ({ children }) => {
         user: null
     });
     const [loading, setLoading] = useState(false);
+    const isAdmin = state?.user?.role === 'admin';
 
     // Default axios settings
-    axios.defaults.baseURL = 'http://192.168.200.13:5000/api';
+    axios.defaults.baseURL = 'http://10.138.235.13:5000/api';
     const token = state?.token;
     if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }) => {
     // Sign Up Function
     const signup = async (userdata) => {
         setLoading(true)
+        console.log('Sign up trigged');
         try {
             const { data } = await axios.post('/signup', userdata);
             setState({ ...state, token: data?.token, user: data?.user })
@@ -74,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ signup, loading, state, handleLogout, login }}>
+        <AuthContext.Provider value={{ signup, loading, state, handleLogout, login,isAdmin }}>
             {children}
         </AuthContext.Provider>
     )
